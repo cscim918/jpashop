@@ -23,5 +23,5 @@ public class Delivery {
     private Address address;
 
     @Enumerated(EnumType.STRING) // enum 사용 시 어노테이션 꼭 넣어주기(String으로 하자)
-    private DeliverStatus status; // READY, COMP
+    private DeliveryStatus status; // READY, COMP
 }
