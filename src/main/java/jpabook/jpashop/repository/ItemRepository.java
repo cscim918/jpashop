@@ -18,6 +18,8 @@ public class ItemRepository {
             em.persist(item);
         } else {
             em.merge(item); // update 비슷한거
+            // 이 merge의 정체? 사실 실무에서 쓸 일이 거의 x
+            // parameter로 넘어온 애랑 영속성 컨텍스트에서 관리된 객체랑 다르다.
         }
     }
 
