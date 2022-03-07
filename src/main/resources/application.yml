@@ -10,7 +10,8 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create # 애플리케이션 실행 시점에 테이블을 drop하고, 다시 생성
+      ddl-auto: none
+      # create - 애플리케이션 실행 시점에 테이블을 drop하고, 다시 생성
     properties:
       hibernate:
 #        show_sql: true # System.out에 hibernate 실행 SQL을 남긴다.
