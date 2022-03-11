@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -22,7 +23,7 @@ public class Order {
     @Column(name = "order_id")
     private Long id;
 
-    @ManyToOne(fetch = LAZY) // 주문 - 회원 : 다대일 양방향 관계 (주인)
+    @ManyToOne(fetch = LAZY) // 주문 - 회원: 다대일 양방향 관계 (주인), 지연 로딩: new 객체에서 안가져온다.(DB에서는 Order의 데이터만 가져오는 것)
     @JoinColumn(name="member_id")
     private Member member;
 

@@ -2,6 +2,7 @@ package jpabook.jpashop.repository;
 
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.domain.Order;
+import jpabook.jpashop.repository.order.simplequery.OrderSimpleQueryDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -25,15 +26,6 @@ public class OrderRepository {
     public Order findOne(Long id) {
         return em.find(Order.class, id);
     }
-
-//    public List<Order> findAll(OrderSearch orderSearch) {
-//
-//        return em.createQuery("select o from Order o join o.member m" + "where o.status = :status" + "and m.name like :name", Order.class)
-//                .setParameter("status", orderSearch.getOrderStatus())
-//                .setParameter("name", orderSearch.getMemberName())
-//                .setMaxResults(1000)
-//                .getResultList();
-//    }
 
     public List<Order> findAllByString(OrderSearch orderSearch) {
 
@@ -102,5 +94,14 @@ public class OrderRepository {
         TypedQuery<Order> query = em.createQuery(cq).setMaxResults(1000); //최대 1000건
 
         return query.getResultList();
+    }
+
+    // 성능 최적화 fetch join
+    public List<Order> findAllWithMemberDelivery() { // join fetch - jpa에만 있는 문법, 필요한 거 한 방에 가져오는 방법
+        return em.createQuery(
+                "select o from Order o" +
+                        " join fetch o.member m" +
+                        " join fetch o.delivery d", Order.class
+        ).getResultList();
     }
 }
